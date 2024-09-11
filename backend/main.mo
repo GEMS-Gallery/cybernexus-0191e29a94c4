@@ -1,5 +1,4 @@
 import Bool "mo:base/Bool";
-import Hash "mo:base/Hash";
 import Int "mo:base/Int";
 
 import Array "mo:base/Array";
@@ -10,6 +9,7 @@ import Option "mo:base/Option";
 import Principal "mo:base/Principal";
 import Text "mo:base/Text";
 import Time "mo:base/Time";
+import Hash "mo:base/Hash";
 
 actor {
   // Types

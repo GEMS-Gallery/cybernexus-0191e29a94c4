@@ -31,13 +31,31 @@
             <div id="quick-links">
                 <h3><i class="fas fa-link"></i> Quick Links</h3>
                 <ul>
-                    <li><a href="#">Create New Post</a></li>
+                    <li><a href="#" id="create-post-link">Create New Post</a></li>
                     <li><a href="#">My Posts</a></li>
                     <li><a href="#">Settings</a></li>
                 </ul>
             </div>
         </aside>
     </main>
+
+    <div id="create-post-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Create New Post</h2>
+            <form id="create-post-form">
+                <select id="post-category" required>
+                    <option value="">Select Category</option>
+                    <option value="red-team">Red Team</option>
+                    <option value="pen-testing">Pen Testing</option>
+                    <option value="general">General</option>
+                </select>
+                <input type="text" id="post-title" placeholder="Post Title" required>
+                <textarea id="post-content" placeholder="Post Content" required></textarea>
+                <button type="submit">Create Post</button>
+            </form>
+            <button id="close-modal">Close</button>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2023 Hacker Forum. All rights reserved.</p>
@@ -47,6 +65,6 @@
         <div class="spinner"></div>
     </div>
 
-    <script src="src/app.js"></script>
+    <script type="module" src="/src/app.js"></script>
 </body>
 </html>

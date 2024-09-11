@@ -3,6 +3,10 @@ import { backend } from 'declarations/backend';
 // DOM elements
 const postList = document.getElementById('post-list');
 const loadingSpinner = document.getElementById('loading-spinner');
+const createPostModal = document.getElementById('create-post-modal');
+const createPostForm = document.getElementById('create-post-form');
+const createPostLink = document.getElementById('create-post-link');
+const closeModalButton = document.getElementById('close-modal');
 
 // Helper function to show/hide loading spinner
 function toggleLoading(show) {
@@ -43,6 +47,21 @@ async function loadPosts(category = null) {
     }
 }
 
+// Function to create a new post
+async function createPost(category, title, content) {
+    toggleLoading(true);
+    try {
+        const postId = await backend.createPost(category, title, content);
+        console.log('New post created with ID:', postId);
+        loadPosts(category);
+        createPostModal.classList.add('hidden');
+    } catch (error) {
+        console.error('Error creating post:', error);
+    } finally {
+        toggleLoading(false);
+    }
+}
+
 // Event listeners for category navigation
 document.querySelectorAll('nav a').forEach(link => {
     link.addEventListener('click', (event) => {
@@ -50,6 +69,26 @@ document.querySelectorAll('nav a').forEach(link => {
         const category = event.target.dataset.category;
         loadPosts(category);
     });
+});
+
+// Event listener for create post form submission
+createPostForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const category = document.getElementById('post-category').value;
+    const title = document.getElementById('post-title').value;
+    const content = document.getElementById('post-content').value;
+    await createPost(category, title, content);
+});
+
+// Event listener for opening the create post modal
+createPostLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    createPostModal.classList.remove('hidden');
+});
+
+// Event listener for closing the create post modal
+closeModalButton.addEventListener('click', () => {
+    createPostModal.classList.add('hidden');
 });
 
 // Initial load of all posts
@@ -60,5 +99,4 @@ const welcomeMessage = document.querySelector('#user-info p');
 welcomeMessage.classList.add('typing');
 
 // Glowing effect for the "Create New Post" link
-const createPostLink = document.querySelector('#quick-links a');
 createPostLink.classList.add('glow');
