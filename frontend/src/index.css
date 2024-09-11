@@ -1,0 +1,147 @@
+:root {
+    --bg-color: #0c0c0c;
+    --text-color: #00ff00;
+    --accent-color: #ff00ff;
+    --secondary-color: #808080;
+    --font-family: 'Courier New', monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+#post-list {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+aside {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--secondary-color);
+    border-top: 3px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    aside {
+        order: -1;
+    }
+}
+
+/* Custom styles for links and buttons */
+a, button {
+    color: var(--text-color);
+    text-decoration: none;
+    border: 1px solid var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+a:hover, button:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* Glowing effect for important elements */
+.glow {
+    box-shadow: 0 0 10px var(--accent-color);
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px var(--accent-color);
+    }
+    to {
+        box-shadow: 0 0 20px var(--accent-color);
+    }
+}
+
+/* Typing effect */
+.typing {
+    overflow: hidden;
+    border-right: 0.15em solid var(--text-color);
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--text-color) }
+}

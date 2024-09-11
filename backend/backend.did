@@ -1,0 +1,24 @@
+type UserId = principal;
+type PostId = nat;
+type Post = 
+ record {
+   author: UserId;
+   category: text;
+   content: text;
+   id: PostId;
+   timestamp: int;
+   title: text;
+ };
+type Category = 
+ record {
+   description: text;
+   name: text;
+ };
+service : {
+  createPost: (text, text, text) -> (PostId);
+  getAllPosts: () -> (vec Post) query;
+  getCategories: () -> (vec Category) query;
+  getPost: (PostId) -> (opt Post) query;
+  getPostsByCategory: (text) -> (vec Post) query;
+  initCategories: () -> ();
+}
