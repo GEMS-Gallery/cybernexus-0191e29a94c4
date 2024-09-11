@@ -7,10 +7,20 @@ const createPostModal = document.getElementById('create-post-modal');
 const createPostForm = document.getElementById('create-post-form');
 const createPostLink = document.getElementById('create-post-link');
 const closeModalButton = document.getElementById('close-modal');
+const notification = document.getElementById('notification');
 
 // Helper function to show/hide loading spinner
 function toggleLoading(show) {
     loadingSpinner.classList.toggle('hidden', !show);
+}
+
+// Function to show notification
+function showNotification(message, duration = 3000) {
+    notification.textContent = message;
+    notification.classList.remove('hidden');
+    setTimeout(() => {
+        notification.classList.add('hidden');
+    }, duration);
 }
 
 // Function to create a post element
@@ -42,6 +52,7 @@ async function loadPosts(category = null) {
         });
     } catch (error) {
         console.error('Error loading posts:', error);
+        showNotification('Failed to load posts. Please try again.');
     } finally {
         toggleLoading(false);
     }
@@ -53,10 +64,13 @@ async function createPost(category, title, content) {
     try {
         const postId = await backend.createPost(category, title, content);
         console.log('New post created with ID:', postId);
-        loadPosts(category);
+        showNotification('Post created successfully!');
         createPostModal.classList.add('hidden');
+        createPostForm.reset();
+        await loadPosts(category);
     } catch (error) {
         console.error('Error creating post:', error);
+        showNotification('Failed to create post. Please try again.');
     } finally {
         toggleLoading(false);
     }
@@ -89,6 +103,7 @@ createPostLink.addEventListener('click', (event) => {
 // Event listener for closing the create post modal
 closeModalButton.addEventListener('click', () => {
     createPostModal.classList.add('hidden');
+    createPostForm.reset();
 });
 
 // Initial load of all posts
